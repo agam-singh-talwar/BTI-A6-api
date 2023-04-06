@@ -7,7 +7,7 @@ const userService = require("./user-service.js");
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const passportJWT = require('passport-jwt');
-const HTTP_PORT = process.env.PORT || 8080;
+const HTTP_PORT = process.env.PORT || 8081;
 
 app.use(express.json());
 app.use(cors());
@@ -20,13 +20,6 @@ let JwtStrategy = passportJWT.Strategy;
 // Configure its options
 let jwtOptions = {};
 jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('jwt');
-
-// IMPORTANT - this secret should be a long, unguessable string
-// (ideally stored in a "protected storage" area on the web server).
-// We suggest that you generate a random 50-character string
-// using the following online tool:
-// https://lastpass.com/generatepassword.php
-
 jwtOptions.secretOrKey = process.env.JWT_SECRET;
 
 let strategy = new JwtStrategy(jwtOptions, function (jwt_payload, next) {
